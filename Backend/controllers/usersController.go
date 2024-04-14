@@ -3,6 +3,7 @@ package controllers
 import (
 	"auth_lwt_go/initializers"
 	"auth_lwt_go/models"
+	"fmt"
 	"net/http"
 	"os"
 	"time"
@@ -110,9 +111,46 @@ func Login(ctx *gin.Context) {
 }
 
 func Validate(ctx *gin.Context) {
+	// Extract JWT from request headers or cookies
+	tokenString, err := ctx.Request.Cookie("Authorization")
+	if err != nil {
+		ctx.JSON(http.StatusUnauthorized, gin.H{"error": "Unauthorized"})
+		return
+	}
 
-	ctx.JSON(http.StatusOK, gin.H{
-		"message": "I am logged in",
+	// Verify JWT signature and parse claims
+	token, err := jwt.Parse(tokenString.Value, func(token *jwt.Token) (interface{}, error) {
+		// Check the signing method
+		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
+		}
+		// Provide the same secret key used in token generation
+		return []byte(os.Getenv("SECRET")), nil
 	})
+	if err != nil {
+		ctx.JSON(http.StatusUnauthorized, gin.H{"error": "Unauthorized"})
+		return
+	}
 
+	// Check token validity
+	if !token.Valid {
+		ctx.JSON(http.StatusUnauthorized, gin.H{"error": "Unauthorized"})
+		return
+	}
+
+	// Extract user information from claims
+	claims, ok := token.Claims.(jwt.MapClaims)
+	if !ok {
+		ctx.JSON(http.StatusUnauthorized, gin.H{"error": "Unauthorized"})
+		return
+	}
+
+	// If needed, perform additional checks on claims (e.g., user role)
+
+	// Respond with success message and user information
+	ctx.JSON(http.StatusOK, gin.H{
+		"message": "Authenticated",
+		"user_id": claims["sub"],
+		// Include any other relevant user information from claims
+	})
 }
