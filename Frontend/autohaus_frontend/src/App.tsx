@@ -1,29 +1,27 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, {useState} from 'react';
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import './App.css';
-import SignUp from './components/SignUp';
-import Login from './components/Login';
-import Validate from './components/Validate';
-import MainContext from './components/MainContext';
-import { AuthProvider, useAuth } from "./components/AuthContext";
+import Navigation from "./components/Navigation";
+import Login from "./pages/Login";
+import Home from "./pages/Home";
+import Register from "./pages/Register";
 
 const App: React.FC = () => {
+    const [name, setName] = useState<string>('');
+
     return (
-        <AuthProvider> {/* Wrap the entire application with AuthProvider */}
+        <div className="App">
             <Router>
-                <div className="App">
-                    <header className="App-header">
-                        <h1>Welcome to Your App</h1>
-                    </header>
+                <Navigation name={name} setName={setName}/>
+                <main className="form-signin">
                     <Routes>
-                        <Route path="/login" element={<Login />} />
-                        <Route path="/signup" element={<SignUp />} />
-                        <Route path="/validate" element={<Validate />} />
-                        <Route path="/" element={<MainContext />} />
+                        <Route path="/" Component={() => <Home name={name}/>}/>
+                        <Route path="/login" Component={() => <Login setName={setName}/>}/>
+                        <Route path="/register" Component={Register}/>
                     </Routes>
-                </div>
+                </main>
             </Router>
-        </AuthProvider>
+        </div>
     );
 };
 

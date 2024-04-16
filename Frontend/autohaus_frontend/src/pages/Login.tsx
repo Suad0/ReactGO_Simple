@@ -1,0 +1,62 @@
+import React, {useState} from 'react';
+import {Navigate} from 'react-router-dom';
+
+import axios from 'axios';
+
+const Login = (props: { setName: (name: string) => void }) => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [redirect, setRedirect] = useState(false);
+    const [error, setError] = useState('');
+
+    const submit = async (e: React.FormEvent) => {
+        e.preventDefault(); // Prevent default form submission behavior
+
+        try {
+            const response = await axios.post('http://localhost:9000/login', {
+                email,
+                password
+            });
+
+            const content = response.data;
+            props.setName(content.name);
+            setRedirect(true); // Redirect after successful login
+        } catch (error) {
+            console.error('Failed to log in:', error);
+            setError('Failed to log in. Please check your credentials.'); // Set error message
+        }
+    };
+
+    if (redirect) {
+        return <Navigate to="/" replace/>;
+
+    }
+
+    return (
+        <form onSubmit={submit}>
+            <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
+            {error && <div className="alert alert-danger">{error}</div>} {/* Display error message if exists */}
+            <input
+                type="email"
+                className="form-control"
+                placeholder="Email address"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+                type="password"
+                className="form-control"
+                placeholder="Password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+            />
+            <button className="w-100 btn btn-lg btn-primary" type="submit">
+                Sign in
+            </button>
+        </form>
+    );
+};
+
+export default Login;
