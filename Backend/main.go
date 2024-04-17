@@ -13,6 +13,9 @@ import (
 func init() {
 	initializers.LoadEnvVariables()
 	initializers.ConnectToDb()
+
+	initializers.ConnectToAutohausDb()
+
 	initializers.SyncDatabase()
 }
 
@@ -27,6 +30,8 @@ func main() {
 	r.POST("/signup", controllers.SignUp)
 	r.POST("/login", controllers.Login)
 	r.GET("/validate", middleware.RequireAuth, controllers.Validate)
+
+	r.GET("/kunden", controllers.GetAllKunden)
 
 	r.Run()
 

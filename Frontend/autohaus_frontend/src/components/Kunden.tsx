@@ -2,9 +2,9 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 
 interface Kunde {
-    name: string,
-    telefon: string,
-    email: string
+    Name: string,
+    Telefon: string,
+    Email: string
 }
 
 const KundenList = () => {
@@ -13,8 +13,9 @@ const KundenList = () => {
     useEffect(() => {
         const fetchKunden = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:5000/kunden');
+                const response = await axios.get('http://localhost:9000/kunden');
                 setKunden(response.data.kunden);
+                console.log(response)
             } catch (error) {
                 console.error('Error fetching kunden:', error);
             }
@@ -38,9 +39,9 @@ const KundenList = () => {
                 <tbody>
                 {kunden.map((kunde: Kunde, index) => (
                     <tr key={index}>
-                        <td>{kunde.name}</td>
-                        <td>{kunde.telefon}</td>
-                        <td>{kunde.email}</td>
+                        <td>{kunde.Name}</td>
+                        <td>{kunde.Telefon}</td>
+                        <td>{kunde.Email}</td>
                     </tr>
                 ))}
                 </tbody>

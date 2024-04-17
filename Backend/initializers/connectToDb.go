@@ -20,3 +20,21 @@ func ConnectToDb() {
 	}
 
 }
+
+func ConnectToAutohausDb() {
+	var err error
+	dsn := os.Getenv("DB_AUTOHAUS")
+	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
+
+	/*
+
+		DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{
+			DisableForeignKeyConstraintWhenMigrating: true, // Disable soft deletes
+		})
+
+	*/
+
+	if err != nil {
+		panic("Failed to connect to AutohausDB")
+	}
+}
