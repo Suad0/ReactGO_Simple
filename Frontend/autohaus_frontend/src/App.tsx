@@ -7,16 +7,16 @@ import Home from "./pages/Home";
 import Register from "./pages/Register";
 
 const App: React.FC = () => {
-    const [name, setName] = useState<string>('');
+    const [email, setEmail] = useState<string>('');
 
     return (
         <div className="App">
             <Router>
-                <Navigation name={name} setName={setName}/>
+                <Navigation emailName={email} setEmailName={setEmail}/>
                 <main className="form-signin">
                     <Routes>
-                        <Route path="/" Component={() => <Home name={name}/>}/>
-                        <Route path="/login" Component={() => <Login setName={setName}/>}/>
+                        <Route path="/" Component={() => <Home emailName={email}/>}/>
+                        <Route path="/login" Component={() => <Login setEmailName={setEmail}/>}/>
                         <Route path="/register" Component={Register}/>
                     </Routes>
                 </main>

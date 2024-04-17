@@ -32,6 +32,13 @@ func main() {
 	r.GET("/validate", middleware.RequireAuth, controllers.Validate)
 
 	r.GET("/kunden", controllers.GetAllKunden)
+	r.GET("/motor", controllers.GetAllMotor)
+	r.GET("/getriebe", controllers.GetAllGetriebe)
+	r.GET("/bereifung", controllers.GetAllBereifung)
+	r.GET("/interieur", controllers.GetAllInterieur)
+	r.GET("/karosserie", controllers.GetAllKarosserie)
+	r.GET("/auto", controllers.GetAllAuto)
+	r.GET("/motorrad", controllers.GetAllMotorrad)
 
 	r.Run()
 

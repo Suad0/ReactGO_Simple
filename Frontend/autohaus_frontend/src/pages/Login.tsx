@@ -3,14 +3,14 @@ import {Navigate} from 'react-router-dom';
 
 import axios from 'axios';
 
-const Login = (props: { setName: (name: string) => void }) => {
+const Login = (props: { setEmailName: (email: string) => void }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [redirect, setRedirect] = useState(false);
     const [error, setError] = useState('');
 
     const submit = async (e: React.FormEvent) => {
-        e.preventDefault(); // Prevent default form submission behavior
+        e.preventDefault();
 
         try {
             const response = await axios.post('http://localhost:9000/login', {
@@ -19,18 +19,18 @@ const Login = (props: { setName: (name: string) => void }) => {
             });
 
             const content = response.data;
-            props.setName(content.name);
-            setRedirect(true); // Redirect after successful login
+            props.setEmailName(content.email); // Hier E-Mail-Adresse speichern
+            setRedirect(true);
         } catch (error) {
             console.error('Failed to log in:', error);
-            setError('Failed to log in. Please check your credentials.'); // Set error message
+            setError('Failed to log in. Please check your credentials.');
         }
     };
 
     if (redirect) {
         return <Navigate to="/" replace/>;
-
     }
+
 
     return (
         <form onSubmit={submit}>

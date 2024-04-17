@@ -1,11 +1,11 @@
 import React from 'react';
 import Kunden from "../components/Kunden";
 
-const Home = (props: { name: string }) => {
+const Home = (props: { emailName: string }) => {
     return (
         <>
             <div>
-                {props.name ? 'Hi ' + props.name : 'You are not logged in'}
+                {props.emailName ? 'Hi ' + props.emailName : 'You are not logged in'}
             </div>
             
             <div>

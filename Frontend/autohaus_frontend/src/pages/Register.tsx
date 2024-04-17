@@ -2,7 +2,7 @@ import React, {SyntheticEvent, useState} from 'react';
 import {Navigate, redirect} from 'react-router-dom';
 
 const Register = () => {
-    const [name, setName] = useState('');
+    const [emailName, setEmailName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [redirect, setRedirect] = useState(false);

@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 
-const Navigation = (props: { name: string, setName: (name: string) => void }) => {
+const Navigation = (props: { emailName: string, setEmailName: (email: string) => void }) => {
     const logout = () => {
-        // Clear authentication state (e.g., remove token from local storage)
         localStorage.removeItem('token');
-        // Update the name state to indicate the user is logged out
-        props.setName('');
+        console.log('LOCAL STORAGE' )
+        console.log(localStorage)
+        props.setEmailName(''); // Hier die E-Mail-Adresse löschen
     }
 
     return (
@@ -15,7 +15,7 @@ const Navigation = (props: { name: string, setName: (name: string) => void }) =>
                 <Link to="/" className="navbar-brand">Home</Link>
 
                 <div>
-                    {props.name === '' ? (
+                    {props.emailName === '' ? (
                         <ul className="navbar-nav me-auto mb-2 mb-md-0">
                             <li className="nav-item active">
                                 <Link to="/login" className="nav-link">Login</Link>
@@ -30,7 +30,7 @@ const Navigation = (props: { name: string, setName: (name: string) => void }) =>
                                 <Link to="/login" className="nav-link" onClick={logout}>Logout</Link>
                             </li>
                             <li className="nav-item active">
-                                <span className="nav-link">{props.name}</span>
+                                <span className="nav-link">{props.emailName}</span>
                             </li>
                         </ul>
                     )}
