@@ -1,19 +1,21 @@
 import React from 'react';
 import Kunden from "../components/Kunden";
 
-const Home = (props: { emailName: string }) => {
+const Home = (props: { isLoggedIn: boolean }) => {
+    // Überprüfen, ob der Benutzer eingeloggt ist
+    if (!props.isLoggedIn) {
+        // Wenn nicht eingeloggt, zeige nichts an
+        return <div>You are not logged in</div>;
+    }
+
     return (
         <>
             <div>
-                {props.emailName ? 'Hi ' + props.emailName : 'You are not logged in'}
+                Hi, you are logged in!
             </div>
-            
             <div>
-
                 <Kunden></Kunden>
-
             </div>
-
         </>
     );
 };

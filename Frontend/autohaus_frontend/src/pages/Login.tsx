@@ -1,9 +1,8 @@
-import React, {useState} from 'react';
-import {Navigate} from 'react-router-dom';
-
+import React, { useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import axios from 'axios';
 
-const Login = (props: { setEmailName: (email: string) => void }) => {
+const Login = (props: { handleLogin: () => void }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [redirect, setRedirect] = useState(false);
@@ -19,7 +18,8 @@ const Login = (props: { setEmailName: (email: string) => void }) => {
             });
 
             const content = response.data;
-            props.setEmailName(content.email); // Hier E-Mail-Adresse speichern
+            // Hier den eingeloggten Zustand aktualisieren
+            props.handleLogin();
             setRedirect(true);
         } catch (error) {
             console.error('Failed to log in:', error);
@@ -28,14 +28,13 @@ const Login = (props: { setEmailName: (email: string) => void }) => {
     };
 
     if (redirect) {
-        return <Navigate to="/" replace/>;
+        return <Navigate to="/" replace />;
     }
-
 
     return (
         <form onSubmit={submit}>
-            <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
-            {error && <div className="alert alert-danger">{error}</div>} {/* Display error message if exists */}
+            <h1 className="h3 mb-3 fw-normal">Please login</h1>
+            {error && <div className="alert alert-danger">{error}</div>}
             <input
                 type="email"
                 className="form-control"
