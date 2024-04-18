@@ -1,5 +1,6 @@
 import React from 'react';
 import Kunden from "../components/Kunden";
+import Auto from "../components/Auto";
 
 const Home = (props: { isLoggedIn: boolean }) => {
     // Überprüfen, ob der Benutzer eingeloggt ist
@@ -15,6 +16,10 @@ const Home = (props: { isLoggedIn: boolean }) => {
             </div>
             <div>
                 <Kunden></Kunden>
+            </div>
+
+            <div>
+                <Auto></Auto>
             </div>
         </>
     );

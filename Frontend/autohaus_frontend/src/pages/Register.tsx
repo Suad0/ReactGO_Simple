@@ -1,5 +1,5 @@
 import React, {SyntheticEvent, useState} from 'react';
-import {Navigate, redirect} from 'react-router-dom';
+import {Navigate} from 'react-router-dom';
 
 const Register = () => {
     const [email, setEmail] = useState('');
