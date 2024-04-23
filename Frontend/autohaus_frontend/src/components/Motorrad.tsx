@@ -1,8 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-import Motor from "../../../../../../../../Downloads/Motor";
-import Getriebe from "../../../../../../../../Downloads/Getriebe";
-import Bereifung from "../../../../../../../../Downloads/Bereifung";
+
 
 interface Motorrad {
     Hersteller: string
@@ -75,9 +73,6 @@ const MotorradList = () => {
                         <td>{motorrad.Preis}</td>
                         <td>{motorrad.Gewicht}</td>
                         <td>{motorrad.Bauform}</td>
-                        <td><Motor></Motor></td>
-                        <td><Getriebe></Getriebe></td>
-                        <td><Bereifung></Bereifung></td>
                     </tr>
                 ))}
                 </tbody>

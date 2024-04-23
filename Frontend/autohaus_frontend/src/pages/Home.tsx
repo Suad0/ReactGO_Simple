@@ -1,6 +1,5 @@
 import React from 'react';
 import Kunden from "../components/Kunden";
-import Auto from "../components/Auto";
 
 const Home = (props: { isLoggedIn: boolean }) => {
     // Überprüfen, ob der Benutzer eingeloggt ist
@@ -14,15 +13,14 @@ const Home = (props: { isLoggedIn: boolean }) => {
             <div>
                 Hi, you are logged in!
             </div>
-            <div>
-                <Kunden></Kunden>
-            </div>
-
-            <div>
-                <Auto></Auto>
+            <div className="grid grid-cols-3 gap-4">
+                <div className="card col-span-3">
+                    <Kunden></Kunden>
+                </div>
             </div>
         </>
     );
+
 };
 
 export default Home;

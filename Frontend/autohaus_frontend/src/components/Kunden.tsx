@@ -1,6 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 
+import {DataTable} from 'primereact/datatable';
+import {Column} from 'primereact/column';
+
 interface Kunde {
     Name: string,
     Telefon: string,
@@ -26,28 +29,17 @@ const KundenList = () => {
 
 
     return (
-        <div>
-            <h2>Kunden List</h2>
-            <table>
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Telefon</th>
-                    <th>Email</th>
-                </tr>
-                </thead>
-                <tbody>
-                {kunden.map((kunde: Kunde, index) => (
-                    <tr key={index}>
-                        <td>{kunde.Name}</td>
-                        <td>{kunde.Telefon}</td>
-                        <td>{kunde.Email}</td>
-                    </tr>
-                ))}
-                </tbody>
-            </table>
+        <div className="grid grid-cols-3 gap-4">
+            <div className="card col-span-3">
+                <DataTable value={kunden}>
+                    <Column field="Name" header="Name"></Column>
+                    <Column field="Telefon" header="Telefon"></Column>
+                    <Column field="Email" header="Email"></Column>
+                </DataTable>
+            </div>
         </div>
     );
+
 };
 
 export default KundenList;
